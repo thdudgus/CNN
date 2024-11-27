@@ -45,14 +45,22 @@ Desktop.ini
 *.h5
 *.ckpt
 
+# 데이터셋 다운로드 경로
+data/
+cifar100/
+
+# 학습 및 테스트 출력 파일
+output/
+test_output/
+debug.log
+
 # 기타 IDE 설정 파일
 .idea/
 .vscode/
 *.iml
 
-# 데이터셋 다운로드 경로
-cifar100/
-
-# 테스트 파일 및 임시 파일
-test_output/
-debug.log
+# 캐시 및 임시 파일
+.cache/
+*.bak
+*.swp
+*.tmp
