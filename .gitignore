@@ -1,0 +1,58 @@
+# Python 관련 파일
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# 환경 설정 및 가상환경
+*.env
+.env/
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+*.egg-info/
+.eggs/
+
+# 파이썬 패키징
+build/
+dist/
+*.egg
+*.whl
+
+# Jupyter Notebook 체크포인트
+.ipynb_checkpoints/
+
+# 로그 및 기타 파일
+*.log
+*.out
+*.tmp
+
+# 운영체제 관련 파일
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.lnk
+
+# VS Code 설정 관련 파일
+.vscode/
+*.code-workspace
+
+# PyTorch 및 학습 파일
+*.pth
+*.pt
+*.h5
+*.ckpt
+
+# 기타 IDE 설정 파일
+.idea/
+.vscode/
+*.iml
+
+# 데이터셋 다운로드 경로
+cifar100/
+
+# 테스트 파일 및 임시 파일
+test_output/
+debug.log
