@@ -233,9 +233,8 @@ transform_test = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-
 # 모델 인스턴스를 생성
-model = ResNet101()
+model = ResNet152()
 # ResNet18, ResNet34, ResNet50, ResNet101, ResNet152 중에 택일하여 사용
 model.apply(init_weights)
 
@@ -302,7 +301,7 @@ def test(model, sample):
     return pred_loss.item(), num_correct.item()
 
 
-max_epoch = 200  # 최대 학습 에폭 수 설정
+max_epoch = 150  # 최대 학습 에폭 수 설정
 
 # 학습 및 테스트 손실을 저장할 리스트 초기화
 tr_loss_saver = []
