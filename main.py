@@ -18,7 +18,7 @@ from torch.utils.data import Dataset, DataLoader
 print(torch.__version__)
 
 # CIFAR-100 데이터셋 디렉토리 경로 설정
-data_path = './cifar100'
+data_path = './cifar-100'
 
 # 학습 및 테스트를 위한 배치 크기 정의
 batch_size = 64
@@ -233,12 +233,6 @@ transform_test = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-train_dataset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform_train)
-test_dataset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
-
-train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=256, shuffle=True, num_workers=8)
-test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=256, shuffle=False, num_workers=8)
-
 
 # 모델 인스턴스를 생성
 model = ResNet101()
@@ -248,7 +242,7 @@ model.apply(init_weights)
 # 모델을 선택한 디바이스(CPU 또는 GPU)로 이동
 model = model.to(device)
 
-learning_rate = 0.01
+learning_rate = 1e-4
 # 모델 파라미터를 업데이트할 옵티마이저 정의 (여기서는 SGD 사용)
 #optimizer = optim.SGD(model.parameters(), lr=1e-1)  # 학습률(lr)을 0.0001로 설정
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
@@ -308,7 +302,7 @@ def test(model, sample):
     return pred_loss.item(), num_correct.item()
 
 
-max_epoch = 100  # 최대 학습 에폭 수 설정
+max_epoch = 200  # 최대 학습 에폭 수 설정
 
 # 학습 및 테스트 손실을 저장할 리스트 초기화
 tr_loss_saver = []
@@ -359,7 +353,6 @@ for epoch in tqdm(range(max_epoch)):
     print('[EPOCH {}] TR LOSS : {:.03f}, TE LOSS : {:.03f}, TR ACCU: {:.03f}, TE ACCU : {:.03f}'.format(epoch+1, train_loss, test_loss, train_accu, test_accu))
 
 
-
 plt.figure(figsize=(4, 3))
 plt.plot(tr_loss_saver)  # Plot the training loss
 plt.plot(te_loss_saver)  # Plot the testing loss
@@ -368,8 +361,3 @@ plt.xlabel('Epoch')  # Label for the x-axis
 plt.ylabel('Loss')  # Label for the y-axis
 plt.title('Train and Test Loss')  # Title of the plot
 plt.show()  # Display the plot
-
-
-
-
-
