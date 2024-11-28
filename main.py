@@ -93,11 +93,11 @@ class BasicBlock(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_planes)
 
         # x를 그대로 더해주기 위함.
-        self.shortcut == nn.Sequential()
+        self.shortcut = nn.Sequential()
 
         # 만약 size가 안 맞아 합 연산이 불가하다면, 연산이 가능하도록 모양을 맞춰 줌
         if stride != 1: # x와(
-            self.shortcut == nn.Sequential(
+            self.shortcut = nn.Sequential(
                 nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(out_planes)
             )
@@ -234,21 +234,21 @@ transform_test = transforms.Compose([
 ])
 
 # 모델 인스턴스를 생성
-model = ResNet152()
+model = ResNet50()
 # ResNet18, ResNet34, ResNet50, ResNet101, ResNet152 중에 택일하여 사용
 model.apply(init_weights)
 
 # 모델을 선택한 디바이스(CPU 또는 GPU)로 이동
 model = model.to(device)
 
-learning_rate = 1e-4
+global learning_rate 
+learning_rate= 1e-4
 # 모델 파라미터를 업데이트할 옵티마이저 정의 (여기서는 SGD 사용)
-#optimizer = optim.SGD(model.parameters(), lr=1e-1)  # 학습률(lr)을 0.0001로 설정
-optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = optim.SGD(model.parameters(), lr=1e-4)  # 학습률(lr)을 0.0001로 설정
+#optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # 모델 아키텍처 출력
 print(model)
-
 
 
 def train(model, optimizer, sample):
@@ -326,6 +326,10 @@ for epoch in tqdm(range(max_epoch)):
 
     # 학습 손실 저장
     tr_loss_saver.append(train_loss)
+
+
+    # 학습률 갱신
+    lr_scheduler(optimizer, epoch)
 
     # 각 에폭 후 모델 상태 저장
     torch.save(model.state_dict(), 'recent.pth')
